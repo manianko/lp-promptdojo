@@ -1,0 +1,109 @@
+---
+// 設計意図：予定価格を正直に提示するセクション。景表法上の事故を避けるため、二重価格・倍率訴求・特定競合の価格は書かず、「予定」表記と無料枠の条件を価格と同じ視認性で並記する（LP_SPEC §4-5）。
+import { PRICE_MONTHLY, FREE_GRADING_PER_DAY, LAUNCH_NOTE } from "../config";
+
+const plans = [
+  {
+    name: "無料プラン",
+    price: "0円",
+    priceNote: `1日${FREE_GRADING_PER_DAY}回まで採点`,
+    summary: "まず続けられるかを試すためのプラン。",
+    features: [
+      `プロンプトの採点は1日${FREE_GRADING_PER_DAY}回まで`,
+      "基礎パートのレッスンを閲覧",
+      "学習の記録とスキルツリーの進捗",
+    ],
+    emphasis: false,
+  },
+  {
+    name: "プレミアム",
+    price: `月${PRICE_MONTHLY}円`,
+    priceNote: "（予定・変更の可能性あり）",
+    summary: "毎日の練習を回数を気にせず続けるためのプラン。",
+    features: [
+      "採点回数の上限を設けない形を予定",
+      "公開済みの全レッスンを閲覧",
+      "苦手な観点の復習出題を予定",
+      "契約期間の縛りなし・いつでも解約できる形を予定",
+    ],
+    emphasis: true,
+  },
+];
+---
+
+<section class="bg-white text-slate-900">
+  <div class="mx-auto max-w-4xl px-5 py-16 sm:py-24">
+    <h2 class="text-2xl font-bold leading-snug tracking-tight sm:text-3xl">
+      料金は、この形を<br class="sm:hidden" />予定しています。
+    </h2>
+    <p class="mt-4 text-base leading-relaxed text-slate-600 sm:text-lg">
+      正式リリース前のため、以下はいずれも予定の内容です。<br class="hidden sm:inline" />
+      先行登録いただいた方には、確定した時点でお知らせします。
+    </p>
+
+    <div class="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2 sm:gap-6">
+      {
+        plans.map((plan) => (
+          <article
+            class={`flex flex-col rounded-xl bg-white p-6 sm:p-7 ${
+              plan.emphasis
+                ? "ring-2 ring-emerald-700 shadow-md"
+                : "ring-1 ring-slate-200 shadow-sm"
+            }`}
+          >
+            <h3 class="text-lg font-bold sm:text-xl">{plan.name}</h3>
+
+            <div class="mt-4 border-y border-slate-200 py-4">
+              <p class="text-3xl font-bold tracking-tight sm:text-4xl">{plan.price}</p>
+              <p class="mt-2 text-base font-bold leading-snug text-slate-900">{plan.priceNote}</p>
+            </div>
+
+            <p class="mt-4 text-base leading-relaxed text-slate-600">{plan.summary}</p>
+
+            <ul class="mt-4 flex flex-col gap-2.5">
+              {plan.features.map((feature) => (
+                <li class="flex gap-2.5 text-base leading-relaxed text-slate-700">
+                  <svg
+                    class="mt-1 size-4 shrink-0 text-emerald-700"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                  >
+                    <path d="m5 12.5 4.5 4.5L19 7" />
+                  </svg>
+                  <span>{feature}</span>
+                </li>
+              ))}
+            </ul>
+          </article>
+        ))
+      }
+    </div>
+
+    <p class="mt-8 text-sm leading-relaxed text-slate-600">
+      学ぶ場は、数十万円規模のスクールから無料の動画まで幅があります。その中で、毎日の練習を続けるための道具として、無理なく払い続けられる価格帯を想定しています。
+    </p>
+
+    <div class="mt-8 rounded-xl bg-emerald-50 p-6 ring-1 ring-emerald-100 sm:p-7">
+      <p class="text-base font-bold leading-snug sm:text-lg">
+        価格が確定したら、先行登録の方へ最初にお知らせします。
+      </p>
+      {/* TODO(1-C): FinalCta 実装後、リンク先を #final-cta のフォームへ向け直す（下方向スクロールにする） */}
+      <a
+        href="#hero-email"
+        class="mt-4 inline-block rounded-lg bg-amber-400 px-6 py-3.5 text-base font-bold text-emerald-950 transition hover:bg-amber-300 focus:outline-none focus:ring-2 focus:ring-amber-300 focus:ring-offset-2"
+      >
+        先行登録して案内を受け取る
+      </a>
+      <p class="mt-3 text-xs leading-relaxed text-slate-500">
+        登録は無料・先行案内のみをお送りします。いつでも配信停止できます。
+      </p>
+    </div>
+
+    <p class="mt-6 text-xs leading-relaxed text-slate-500">{LAUNCH_NOTE}</p>
+  </div>
+</section>
