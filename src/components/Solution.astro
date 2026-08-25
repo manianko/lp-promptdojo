@@ -1,0 +1,97 @@
+---
+// 設計意図：Problemで開いた3つの穴を、そのまま3つの約束で塞ぐ。断定を避け、機能の事実だけをアイコン付きで並べる（LP_SPEC §4-3 / §2）。
+import { PRICE_MONTHLY } from "../config";
+
+const promises = [
+  {
+    icon: "clock",
+    label: "1回3〜5分",
+    title: "通勤中でも、寝る前でも終わる長さ",
+    body: "1レッスンは解説と実技で3〜5分に収まる設計です。まとまった学習時間を確保しなくても、1日1レッスンずつ進められます。",
+  },
+  {
+    icon: "pen",
+    label: "書いて、直される",
+    title: "全レッスンに実技。採点とコメントが返る",
+    body: "お題に沿って自分でプロンプトを書くと、AIが観点ごとに採点し、どこをどう直すとよいかをその場でコメントで返します。",
+  },
+  {
+    icon: "yen",
+    label: "日本語ネイティブ品質・明朗会計",
+    title: "機械翻訳ではない日本語と、わかりやすい料金",
+    body: `解説も採点コメントも、日本語で書き下ろします。料金は月${PRICE_MONTHLY}円（予定・変更の可能性あり）。契約期間の縛りは設けず、いつでも解約できる形を予定しています。`,
+  },
+];
+---
+
+<section class="bg-emerald-50 text-slate-900">
+  <div class="mx-auto max-w-3xl px-5 py-16 sm:py-24">
+    <h2 class="text-2xl font-bold leading-snug tracking-tight sm:text-3xl">
+      練習環境として、<br class="sm:hidden" />3つだけお約束すること
+    </h2>
+
+    <div class="mt-10 flex flex-col gap-5 sm:gap-6">
+      {
+        promises.map((promise) => (
+          <article class="rounded-xl bg-white p-6 shadow-sm ring-1 ring-emerald-100 sm:p-7">
+            <div class="flex items-center gap-3">
+              <span
+                class="flex size-10 shrink-0 items-center justify-center rounded-lg bg-emerald-950 text-amber-400"
+                aria-hidden="true"
+              >
+                {promise.icon === "clock" && (
+                  <svg
+                    class="size-5"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <circle cx="12" cy="12" r="9" />
+                    <path d="M12 7v5l3 2" />
+                  </svg>
+                )}
+                {promise.icon === "pen" && (
+                  <svg
+                    class="size-5"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <path d="M4 20h4l10-10a2.8 2.8 0 0 0-4-4L4 16v4Z" />
+                    <path d="m13.5 6.5 4 4" />
+                  </svg>
+                )}
+                {promise.icon === "yen" && (
+                  <svg
+                    class="size-5"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <path d="m7 5 5 7 5-7" />
+                    <path d="M7 13h10" />
+                    <path d="M7 16.5h10" />
+                    <path d="M12 12v7" />
+                  </svg>
+                )}
+              </span>
+              <p class="text-sm font-bold tracking-wide text-emerald-700">{promise.label}</p>
+            </div>
+
+            <h3 class="mt-4 text-lg font-bold leading-snug sm:text-xl">{promise.title}</h3>
+            <p class="mt-2 text-base leading-relaxed text-slate-600">{promise.body}</p>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>
