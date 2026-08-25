@@ -1,0 +1,50 @@
+---
+// 設計意図：Heroの直後で「自分のことだ」と思わせる共感パート。課題を3点だけに絞り、最後の1行でSolutionへ橋を架ける（LP_SPEC §4-2 / §1 / §2）。
+const problems = [
+  {
+    title: "保存したまま、試していない",
+    body: "ブックマークもスクショも増えていく。でも実際に自分で書いたプロンプトは、数えるほど。インプットだけが積み上がっていきます。",
+  },
+  {
+    title: "書いてみても、良し悪しがわからない",
+    body: "返ってきた答えがいまひとつでも、原因が自分の指示にあるのか判断できない。直しようがないまま「こんなものか」で終わってしまいます。",
+  },
+  {
+    title: "学ぶ場が、両極端",
+    body: "数十万円のスクールは手が出ない。無料の動画は、見た日はわかった気になるのに、翌週には何も変わっていない。その中間がありません。",
+  },
+];
+---
+
+<section class="bg-white text-slate-900">
+  <div class="mx-auto max-w-3xl px-5 py-16 sm:py-24">
+    <h2 class="text-2xl font-bold leading-snug tracking-tight sm:text-3xl">
+      情報は、もう十分に見てきた。<br class="sm:hidden" />
+      それでも「使えている」実感がない。
+    </h2>
+
+    <ul class="mt-10 flex flex-col gap-6 sm:gap-8">
+      {
+        problems.map((problem, index) => (
+          <li class="flex gap-4 border-l-2 border-emerald-200 pl-4 sm:gap-5 sm:pl-6">
+            <span
+              class="mt-0.5 shrink-0 text-sm font-bold tabular-nums text-emerald-600"
+              aria-hidden="true"
+            >
+              {String(index + 1).padStart(2, "0")}
+            </span>
+            <div>
+              <h3 class="text-lg font-bold leading-snug sm:text-xl">{problem.title}</h3>
+              <p class="mt-2 text-base leading-relaxed text-slate-600">{problem.body}</p>
+            </div>
+          </li>
+        ))
+      }
+    </ul>
+
+    <p class="mt-10 border-t border-slate-200 pt-8 text-base font-medium leading-relaxed text-slate-800 sm:text-lg">
+      英語と同じで、AIも情報はもう溢れています。<br class="hidden sm:inline" />
+      足りないのは、<span class="bg-amber-200/70 px-1 font-bold">毎日続く練習環境</span>のほうです。
+    </p>
+  </div>
+</section>

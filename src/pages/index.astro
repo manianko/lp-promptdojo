@@ -2,6 +2,7 @@
 // 設計意図：LPのトップページ。LP_SPEC.md §4 のセクションを上から順に差し込む器。
 import Layout from "../layouts/Layout.astro";
 import Hero from "../components/Hero.astro";
+import Problem from "../components/Problem.astro";
 import { SERVICE_NAME } from "../config";
 ---
 
@@ -11,6 +12,7 @@ import { SERVICE_NAME } from "../config";
 >
   <main>
     <Hero />
-    {/* TODO(1-C): Problem / Solution / FeaturePreview / Pricing / Comparison / Story / Faq / FinalCta / Footer */}
+    <Problem />
+    {/* TODO(1-C): Solution / FeaturePreview / Pricing / Comparison / Story / Faq / FinalCta / Footer */}
   </main>
 </Layout>

@@ -25,7 +25,7 @@
 
 ### 1-C. LP実装 [CC]（LP_SPEC.md §4 のセクション順に1つずつ）
 - [x] Hero（キャッチ + 登録フォーム）
-- [ ] Problem(課題提起)
+- [x] Problem(課題提起)
 - [ ] Solution(3つの約束)
 - [ ] FeaturePreview(画面モック/スキルツリー図)
 - [ ] Pricing(予定価格の提示)

@@ -66,7 +66,7 @@
 
 ### 1-C. LP実装 [CC]（LP_SPEC.md §4 のセクション順に1つずつ）
 - [x] Hero（キャッチ + 登録フォーム）
-- [ ] Problem(課題提起)
+- [x] Problem(課題提起)
 - [ ] Solution(3つの約束)
 - [ ] FeaturePreview(画面モック/スキルツリー図)
 - [ ] Pricing(予定価格の提示)
@@ -98,6 +98,17 @@
 - 配色：深緑ベース（emerald-950）+ 明るいアクセント1色（amber-400）。Tailwind標準色のみでトークン未定義（LP_SPEC §9）
 - フォームはHTML標準のPOSTのみ。**JSゼロを維持**（GA4の `waitlist_submit` 送信は 1-D で追加）
 - コンプラ：価格は「月980円（予定・変更の可能性あり）」、成果断定なし、実績・口コミの記載なし、競合言及なし
+- `npm run build` 成功 / dev server 200応答を確認
+
+---
+
+### 2026-08-25 — リネーム/git初期化 + Problem実装（1-C）
+- `docs/PROJECT_MAP_3.md` を `docs/PROJECT_MAP.md` にリネーム（相互参照との不一致を解消。CLAUDE.md の注記も削除）
+- `git init` + 初回コミット `2743ed2 chore: scaffold Astro7+Tailwind4, docs, Hero section`（branch: master）
+- Hero はユーザーのブラウザ確認OK済み
+- `src/components/Problem.astro` 新規：共感型の課題提起3点 + Solutionへ橋を架ける1行（LP_SPEC §4-2 / §2）
+- 背景を白にしてHero（深緑）とコントラストを付け、番号付きリストで縦読みできる構成に
+- コンプラ：数値・利用者数の類は一切書かず主観的な状況描写のみ。競合は「数十万円のスクール」「無料の動画」と一般名詞で表現
 - `npm run build` 成功 / dev server 200応答を確認
 
 ---
