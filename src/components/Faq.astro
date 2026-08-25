@@ -1,0 +1,61 @@
+---
+// 設計意図：登録前の不安を5問で潰す。ゼロJS方針のため details/summary のネイティブ開閉を使い、確定していない事項は「予定」のまま書く（LP_SPEC §4-8 / PROJECT_MAP D10）。
+import { PRICE_MONTHLY, FREE_GRADING_PER_DAY } from "../config";
+
+const faqs = [
+  {
+    q: "いつ公開されますか？",
+    open: true,
+    a: `現在開発中で、公開時期は未定です。時期が決まり次第、先行登録いただいた方へお知らせします。先行登録いただいた方から順にβ版へご招待する予定です。`,
+  },
+  {
+    q: "無料で使えますか？",
+    a: `無料でお使いいただける範囲を用意する予定です。プロンプトの採点は1日${FREE_GRADING_PER_DAY}回まで、レッスンは基礎パートを閲覧できます。回数を気にせず使いたい場合は、月${PRICE_MONTHLY}円（予定・変更の可能性あり）のプレミアムをご検討ください。なお、先行登録そのものは無料です。`,
+  },
+  {
+    q: "解約はできますか？",
+    a: "契約期間の縛りは設けず、いつでも解約できる形を予定しています。料金や解約の条件は正式リリース時に確定し、先行登録いただいた方へ事前にお知らせします。",
+  },
+  {
+    q: "何が学べますか？",
+    a: "AIに指示を出すときの「型」を扱います。役割を与える、条件を絞る、出力形式を指定するといった書き方を、解説を読むだけでなく実際に自分でプロンプトを書いて練習します。書いたプロンプトはAIが観点ごとに採点し、どこをどう直すとよいかをコメントで返します。",
+  },
+  {
+    q: "初心者でも大丈夫ですか？",
+    a: "ChatGPTなどのAIを触ったことはあるものの、使いこなせている実感がない方を想定しています。プログラミングの知識は必要ありません。1レッスンは3〜5分で、基礎から順に進む構成を予定しています。",
+  },
+];
+---
+
+<section class="bg-emerald-50 text-slate-900">
+  <div class="mx-auto max-w-3xl px-5 py-16 sm:py-24">
+    <h2 class="text-2xl font-bold leading-snug tracking-tight sm:text-3xl">よくある質問</h2>
+
+    <div class="mt-8 flex flex-col gap-3">
+      {
+        faqs.map((faq) => (
+          <details open={faq.open} class="group rounded-xl bg-white shadow-sm ring-1 ring-emerald-100">
+            <summary class="flex cursor-pointer list-none items-center justify-between gap-4 p-5 text-base font-bold leading-snug [&::-webkit-details-marker]:hidden sm:p-6 sm:text-lg">
+              <span>{faq.q}</span>
+              <svg
+                class="size-5 shrink-0 text-emerald-700 transition-transform group-open:rotate-180"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <path d="m6 9 6 6 6-6" />
+              </svg>
+            </summary>
+            <p class="border-t border-slate-100 px-5 pb-5 pt-4 text-base leading-relaxed text-slate-600 sm:px-6 sm:pb-6">
+              {faq.a}
+            </p>
+          </details>
+        ))
+      }
+    </div>
+  </div>
+</section>
