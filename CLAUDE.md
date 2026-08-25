@@ -54,6 +54,7 @@
 - 開発サーバ：`npm run dev`（バックグラウンド運用は `npx astro dev --background` / `stop` / `status` / `logs`）
 - ビルド確認：`npm run build`
 - `npx astro check` は未導入（初回実行時に `@astrojs/check` のインストール確認が対話で出る）
+- `scripts/generate-images.cjs` = OGP/favicon生成器。画像を作り直す時に node で実行。sharp依存
 
 ---
 
@@ -77,7 +78,7 @@
 - [x] FinalCta(登録フォーム再掲)
 - [x] Footer + プライバシーポリシーページ
 - [x] フォーム送信の疎通確認（テスト送信→受信確認）
-- [ ] OGP / meta / favicon
+- [x] OGP / meta / favicon
 - [ ] スマホ実機確認（LP流入はほぼモバイル前提）
 
 ---
@@ -264,6 +265,29 @@
 - ゼロJS維持（両ページとも `<script>` 0件 / `.js` 出力0件）
 - `npm run build` 成功 / dev server で `/` `/privacy` ともに200応答を確認
 - **要確認プレースホルダー**：屋号または氏名 / 連絡先メールアドレス / 制定日（2026年8月26日で仮置き）
+
+---
+
+### 2026-08-26 — Formspreeリンク/制定日 + OGP・meta・favicon（1-C完了）
+- `docs/LP_SPEC.md` §7 に `OPERATOR_NAME` / `CONTACT_EMAIL` / `PRIVACY_ESTABLISHED` を追記（`04f33c7 docs: add operator constants to LP_SPEC`）
+- privacy 3. の「同社の定めるプライバシーポリシー」を Formspree の実在URL
+  `https://formspree.io/legal/privacy-policy/` への外部リンクに（`target="_blank" rel="noopener noreferrer"`）
+- `PRIVACY_ESTABLISHED` は仮置きのまま、コメントを「// 公開直前に公開日へ差し替え」に変更
+- `docs/TASKS.md` 1-D に「[ME] 公開前一括差し替え：GA4_ID / (GADS_ID or 削除) / CV_LABELS / OPERATOR_NAME / CONTACT_EMAIL / PRIVACY_ESTABLISHED」を追加
+- **OGP / meta / favicon**（1-C 最終タスク）
+  - 画像アセットが無いため、SVGを sharp（Astroが依存で持っている）でラスタライズして生成。
+    生成器は `scripts/generate-images.cjs` に置き、コピーやサービス名の変更時に作り直せるようにした
+  - `public/og-image.png` 1200x630：深緑背景 + キャッチ2行 + サービス名（仮称）。**日本語が正しく描画されることを実際に画像を開いて目視確認**
+  - `public/favicon.svg` を Astro スキャフォルドのロゴから自前のものへ差し替え（SERVICE_NAME 頭文字1字「プ」）。
+    併せて `favicon-32.png` / `apple-touch-icon.png` を生成。**Astroロゴのままだった `public/favicon.ico` は削除**（他社ロゴを出さないため）
+  - `Layout.astro` に og:type/site_name/locale/title/description/image(+width/height)、twitter:card=summary_large_image 一式を追加
+  - **絶対URLの扱い**：デプロイ先未確定のため `config.ts` に `SITE_URL = ""` を追加し、空のうちは og:image を相対パスで出力し
+    canonical / og:url は出力しない。SITE_URL を設定するだけで絶対URLに切り替わる実装にした
+    （※ SITE_URL も LP_SPEC §7 に無い追加のため要承認）
+- コンプラ：title/description に成果断定・禁止語なし。**どちらも価格に言及していない**ため §3 の「文字数制約領域での注記省略」例外を使う必要がなく、
+  本文側の「（予定・変更の可能性あり）」と矛盾しない
+- ゼロJS維持（2ページとも `<script>` 0件 / `.js` 出力0件）
+- `npm run build` 成功（2ページ）/ dev server で `/` `/privacy` および画像4点すべて200応答を確認
 
 ---
 

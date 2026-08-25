@@ -35,13 +35,14 @@
 - [x] FinalCta(登録フォーム再掲)
 - [x] Footer + プライバシーポリシーページ
 - [x] フォーム送信の疎通確認（テスト送信→受信確認）
-- [ ] OGP / meta / favicon
+- [x] OGP / meta / favicon
 - [ ] スマホ実機確認（LP流入はほぼモバイル前提）
 
 ### 1-D. 計測・公開
 - [ ] [CC] GA4タグ設置（登録完了イベント `waitlist_submit` を計測）
 - [ ] [ME] Vercelデプロイ
 - [ ] [ME] 広告アカウント側でCVイベント設定
+- [ ] [ME] 公開前一括差し替え：GA4_ID / (GADS_ID or 削除) / CV_LABELS / OPERATOR_NAME / CONTACT_EMAIL / PRIVACY_ESTABLISHED / SITE_URL
 - [ ] [ME] 広告入稿（予算・訴求はLP_SPEC.md §6）
 
 ### 1-E. 判定 [WC+ME]
