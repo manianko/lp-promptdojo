@@ -1,0 +1,43 @@
+---
+// 設計意図：最後にもう一度フォームを置くだけのセクション。煽り文句は使わず、登録が無料であることとβ招待の予定という事実だけで背中を押す（LP_SPEC §4-9 / §3）。
+import { FORM_ENDPOINT, LAUNCH_NOTE } from "../config";
+---
+
+<section id="final-cta" class="bg-emerald-950 text-emerald-50">
+  <div class="mx-auto flex max-w-3xl flex-col gap-6 px-5 py-16 sm:py-24">
+    <h2 class="text-2xl font-bold leading-snug tracking-tight sm:text-3xl">
+      登録は無料。<br class="sm:hidden" />
+      <span class="text-amber-400">公開時に、最初にご案内します。</span>
+    </h2>
+
+    <p class="text-base leading-relaxed text-emerald-100/90 sm:text-lg">
+      メールアドレスだけで登録できます。<br class="hidden sm:inline" />
+      先行登録いただいた方から順にβ版へご招待する予定です。
+    </p>
+
+    <form action={FORM_ENDPOINT} method="POST" class="flex flex-col gap-3 sm:flex-row">
+      <label for="final-email" class="sr-only">メールアドレス</label>
+      <input
+        id="final-email"
+        type="email"
+        name="email"
+        required
+        autocomplete="email"
+        inputmode="email"
+        placeholder="メールアドレス"
+        class="w-full rounded-lg border border-emerald-700 bg-white px-4 py-3.5 text-base text-slate-900 placeholder:text-slate-400 focus:border-amber-400 focus:outline-none focus:ring-2 focus:ring-amber-400/60 sm:flex-1"
+      />
+      <button
+        type="submit"
+        class="w-full rounded-lg bg-amber-400 px-6 py-3.5 text-base font-bold text-emerald-950 transition hover:bg-amber-300 focus:outline-none focus:ring-2 focus:ring-amber-300 focus:ring-offset-2 focus:ring-offset-emerald-950 sm:w-auto sm:whitespace-nowrap"
+      >
+        先行登録する（無料）
+      </button>
+    </form>
+
+    <div class="space-y-1 text-xs leading-relaxed text-emerald-200/70">
+      <p>登録は無料・先行案内のみをお送りします。いつでも配信停止できます。</p>
+      <p>{LAUNCH_NOTE}</p>
+    </div>
+  </div>
+</section>

@@ -74,7 +74,7 @@
 - [x] Comparison(スクール/海外アプリ/無料動画との対比表)
 - [x] Story(開発者の1年間・信頼性パート)
 - [x] Faq
-- [ ] FinalCta(登録フォーム再掲)
+- [x] FinalCta(登録フォーム再掲)
 - [ ] Footer + プライバシーポリシーページ
 - [x] フォーム送信の疎通確認（テスト送信→受信確認）
 - [ ] OGP / meta / favicon
@@ -222,6 +222,26 @@
   - 解約・無料枠はすべて「〜を予定しています」で統一。価格・回数は `PRICE_MONTHLY` / `FREE_GRADING_PER_DAY` 参照
 - 価格表記の**文字列をサイト全体で統一**：Faq の初稿が「（月980円・予定・変更の可能性あり）」と定型からずれていたため、
   他4箇所と同じ「月980円（予定・変更の可能性あり）」に揃えた（公開前の一括チェックを grep 1本で効かせるため）
+- `npm run build` 成功 / dev server 200応答を確認
+
+---
+
+### 2026-08-26 — Faq初期展開の修正 + FinalCta実装（1-C）
+- Faq 修正：1問目（公開時期）のみ初期展開。`faqs` 配列に `open: true` を持たせ `<details open={faq.open}>` で出し分ける
+  （マークアップ側に分岐を作らない。Astroは `open={false}` で属性自体を出力しないため、出力に `<details open` は1件のみ）。**JSは追加せずゼロJSを維持**
+- `src/components/FinalCta.astro` 新規：`id="final-cta"`、Heroと同一仕様のフォーム再掲（LP_SPEC §4-9）
+- フォームは Hero と完全同一仕様：`action={FORM_ENDPOINT}` / `method="POST"` / メール1項目 / `type="email"` / `required` /
+  `autocomplete="email"` / `inputmode="email"`。`id` のみ `hero-email` と衝突しないよう `final-email` に分離（labelの`for`も対応）
+- 背景は emerald-950。Faq(淡緑) → FinalCta(深緑) で、Heroと同じ配色に戻して「登録する場所」であることを視覚的に揃えた
+- コンプラ判断：
+  - 見出しは「登録は無料。公開時に、最初にご案内します。」という事実ベース。
+    煽り（今だけ/急いで/限定/残りわずか/先着/締切/今すぐ/期間限定 等）の混入0件を grep で確認
+  - β訴求は Faq と**同一の文字列**「先行登録いただいた方から順にβ版へご招待する予定です」を使用（ページ内2箇所で表現が揺れないこと確認）
+  - 「登録は無料・先行案内のみをお送りします。いつでも配信停止できます。」＋ `LAUNCH_NOTE` を Hero と同様に併記
+- `src/components/Pricing.astro` の TODO を消化：CTAリンク先を `#hero-email` → `#final-cta` に変更しTODOコメント削除。
+  ページ内アンカーは `#final-cta` の1本のみになり、リンク先の `id` が存在することを出力で確認
+- ユーザー判断により、Hero と FinalCta の二重登録に対する重複防止の仕掛けは**実装しない**（Formspree側で同一メールを識別できるため）
+- 残TODO：`index.astro` の Footer、`Layout.astro` の OGP/favicon/GA4
 - `npm run build` 成功 / dev server 200応答を確認
 
 ---
