@@ -79,7 +79,7 @@
 - [x] Footer + プライバシーポリシーページ
 - [x] フォーム送信の疎通確認（テスト送信→受信確認）
 - [x] OGP / meta / favicon
-- [ ] スマホ実機確認（LP流入はほぼモバイル前提）
+- [x] スマホ実機確認（LP流入はほぼモバイル前提）
 
 ---
 
@@ -288,6 +288,20 @@
   本文側の「（予定・変更の可能性あり）」と矛盾しない
 - ゼロJS維持（2ページとも `<script>` 0件 / `.js` 出力0件）
 - `npm run build` 成功（2ページ）/ dev server で `/` `/privacy` および画像4点すべて200応答を確認
+
+---
+
+### 2026-08-26 — 1-C 完了（4コミット分割 + 実機確認）
+- ユーザーのブラウザ確認・スマホ実機確認ともにOK（崩れなし）を受けて4コミットに分割：
+  `74b3f27 feat: Faq section` / `12de18b feat: FinalCta section` /
+  `a9cf403 feat: Footer and privacy policy page` / `61b80f0 feat: OGP, meta tags and favicon`
+- **4コミットすべてを個別にチェックアウトして `astro build` を実行し、単体でビルドが通ることを検証**
+  （74b3f27=1ページ / 12de18b=1ページ / a9cf403=2ページ / 61b80f0=2ページ）。
+  分割時に `index.astro` の差し込み状態と `config.ts` の定数追加のタイミングを揃えたため、中間コミットに未定義参照は残っていない
+- `docs/LP_SPEC.md` §7 に `SITE_URL` を追記（`c6eadeb`）。1-D の一括差し替えリストにも `SITE_URL` を追加
+- `CLAUDE.md` / `AGENTS.md` の環境メモに `scripts/generate-images.cjs` の1行を追加
+- **1-C（LP実装）全13項目を完了**。スマホ実機確認はユーザー実施
+- 次は 1-D の `[CC] GA4タグ設置（waitlist_submit）`。ユーザーの指示待ちで着手しない
 
 ---
 
