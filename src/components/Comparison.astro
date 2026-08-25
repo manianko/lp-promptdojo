@@ -1,0 +1,132 @@
+---
+// 設計意図：他カテゴリを貶めずに立ち位置だけを示す。○×の対比表にはせず「向いている人が違う」という書き分けにし、価格・形式などの客観属性のみを一般名詞のカテゴリで記述する（LP_SPEC §4-6）。
+import { SERVICE_NAME, PRICE_MONTHLY } from "../config";
+
+// 比較は一般名詞の3カテゴリのみ。特定サービス名・その価格は書かない。
+// 他カテゴリには「欠点」を書かず、形式と費用感という客観属性、および向いている人だけを記述する。
+const options = [
+  {
+    name: "数十万円規模のスクール",
+    format: "講師やメンターがつく講座形式。学ぶ範囲と期間があらかじめ決まっている。",
+    cost: "数十万円規模のものもある",
+    fitFor: "期間を区切って集中的に取り組みたい人。伴走してくれる相手が欲しい人。",
+    ours: false,
+  },
+  {
+    name: "海外製の学習アプリ",
+    format: "アプリで少しずつ進める形式。英語圏で作られたものが多い。",
+    cost: "月額のサブスクリプションが中心",
+    fitFor: "英語で学びたい人。海外の最新の題材に触れたい人。",
+    ours: false,
+  },
+  {
+    name: "無料の動画・記事",
+    format: "見たいときに見る形式。何をどの順で学ぶかは自分で決める。",
+    cost: "無料のものが多い",
+    fitFor: "知りたいことがはっきりしている人。自分で進度を管理できる人。",
+    ours: false,
+  },
+];
+
+// 当方の列のみ、事実として言える内容を具体的に示す
+const ourFacts = [
+  "全レッスンに実技があり、書いたプロンプトをAIが採点してコメントを返す",
+  "解説も採点コメントも日本語で書き下ろす（機械翻訳ではない）",
+  "1レッスンは3〜5分。1日1回ぶんの分量",
+  `無料枠あり。プレミアムは月${PRICE_MONTHLY}円（予定・変更の可能性あり）`,
+];
+---
+
+<section class="bg-emerald-50 text-slate-900">
+  <div class="mx-auto max-w-4xl px-5 py-16 sm:py-24">
+    <h2 class="text-2xl font-bold leading-snug tracking-tight sm:text-3xl">
+      どれが優れているかではなく、<br class="sm:hidden" />向いている人が違います。
+    </h2>
+    <p class="mt-4 text-base leading-relaxed text-slate-600 sm:text-lg">
+      AIの学び方には、いくつかの選択肢があります。<br class="hidden sm:inline" />
+      それぞれ形式も費用も違うので、ご自身に合うものを選ぶための材料として並べます。
+    </p>
+
+    <div class="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-3 sm:gap-4">
+      {
+        options.map((option) => (
+          <article class="flex flex-col rounded-xl bg-white p-5 shadow-sm ring-1 ring-emerald-100 sm:p-6">
+            <h3 class="text-base font-bold leading-snug sm:text-lg">{option.name}</h3>
+
+            <dl class="mt-4 flex flex-col gap-3 text-sm leading-relaxed">
+              <div>
+                <dt class="text-xs font-bold tracking-wide text-emerald-700">形式</dt>
+                <dd class="mt-1 text-slate-600">{option.format}</dd>
+              </div>
+              <div>
+                <dt class="text-xs font-bold tracking-wide text-emerald-700">費用</dt>
+                <dd class="mt-1 text-slate-600">{option.cost}</dd>
+              </div>
+              <div>
+                <dt class="text-xs font-bold tracking-wide text-emerald-700">向いている人</dt>
+                <dd class="mt-1 text-slate-600">{option.fitFor}</dd>
+              </div>
+            </dl>
+          </article>
+        ))
+      }
+    </div>
+
+    <article class="mt-5 rounded-xl bg-white p-6 shadow-md ring-2 ring-emerald-700 sm:mt-4 sm:p-7">
+      <div class="flex flex-wrap items-center gap-x-3 gap-y-1">
+        <h3 class="text-lg font-bold leading-snug sm:text-xl">
+          {SERVICE_NAME}<span class="ml-1 text-xs font-medium text-slate-500">（仮称）</span>
+        </h3>
+        <span
+          class="rounded-full bg-emerald-950 px-2.5 py-0.5 text-[11px] font-bold text-amber-400"
+        >
+          {SERVICE_NAME}（開発中）
+        </span>
+      </div>
+
+      <dl class="mt-4 flex flex-col gap-3 text-sm leading-relaxed sm:text-base">
+        <div>
+          <dt class="text-xs font-bold tracking-wide text-emerald-700">形式</dt>
+          <dd class="mt-1 text-slate-600">
+            解説を読んで自分でプロンプトを書き、その場で採点とコメントを受け取るアプリ形式。
+          </dd>
+        </div>
+        <div>
+          <dt class="text-xs font-bold tracking-wide text-emerald-700">向いている人</dt>
+          <dd class="mt-1 text-slate-600">
+            毎日少しずつ、手を動かしながら続けたい人。日本語で学びたい人。
+          </dd>
+        </div>
+      </dl>
+
+      <div class="mt-5 border-t border-slate-200 pt-5">
+        <p class="text-xs font-bold tracking-wide text-emerald-700">できること（予定を含む）</p>
+        <ul class="mt-3 flex flex-col gap-2.5">
+          {
+            ourFacts.map((fact) => (
+              <li class="flex gap-2.5 text-sm leading-relaxed text-slate-700 sm:text-base">
+                <svg
+                  class="mt-1 size-4 shrink-0 text-emerald-700"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <path d="m5 12.5 4.5 4.5L19 7" />
+                </svg>
+                <span>{fact}</span>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </article>
+
+    <p class="mt-6 text-xs leading-relaxed text-slate-500">
+      ※ 上記は一般的なカテゴリごとの傾向をまとめたものです。個々のサービスによって形式・費用は異なります。
+    </p>
+  </div>
+</section>
