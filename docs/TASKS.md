@@ -30,6 +30,7 @@
 - [x] FeaturePreview(画面モック/スキルツリー図)
 - [x] Pricing(予定価格の提示)
 - [x] Comparison(スクール/海外アプリ/無料動画との対比表)
+- [x] Story(開発者の1年間・信頼性パート)
 - [ ] Faq
 - [ ] FinalCta(登録フォーム再掲)
 - [ ] Footer + プライバシーポリシーページ

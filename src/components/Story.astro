@@ -1,0 +1,58 @@
+---
+// 設計意図：実績や口コミの代わりに、開発者自身の1年間の事実の時系列だけで信頼性を担保する補強パート。変化の物語や成果の示唆を書かず、LP全体で最も短く保つ（LP_SPEC §4-7 / §3）。
+const steps = [
+  {
+    label: "壁打ちから始めた",
+    body: "わからないことをAIに聞き、的外れな答えが返るたびに、聞き方のほうを変えて試しました。",
+  },
+  {
+    label: "複数のAIでクロスレビュー",
+    body: "ひとつの答えを鵜呑みにせず、別のAIに検証させる進め方に変えました。",
+  },
+  {
+    label: "AIと一緒に開発した",
+    body: "指示を出してコードを書かせ、動かない箇所を直す。このLPも同じ進め方で作っています。",
+  },
+  {
+    label: "毎回ゼロから考えなくなった",
+    body: "指示の型が自分の中に残り、書き出すまでの時間が短くなりました。",
+  },
+];
+---
+
+<section class="bg-white text-slate-900">
+  <div class="mx-auto max-w-3xl px-5 py-14 sm:py-20">
+    <h2 class="text-xl font-bold leading-snug tracking-tight sm:text-2xl">
+      このアプリは、開発者自身の<br class="sm:hidden" />1年間の独学からできています。
+    </h2>
+
+    <ol class="mt-8 flex flex-col gap-5">
+      {
+        steps.map((step, index) => (
+          <li class="flex gap-4">
+            <span
+              class="mt-1 shrink-0 text-sm font-bold tabular-nums text-emerald-600"
+              aria-hidden="true"
+            >
+              {String(index + 1).padStart(2, "0")}
+            </span>
+            <div>
+              <h3 class="text-base font-bold leading-snug">{step.label}</h3>
+              <p class="mt-1 text-sm leading-relaxed text-slate-600 sm:text-base">{step.body}</p>
+            </div>
+          </li>
+        ))
+      }
+    </ol>
+
+    <p
+      class="mt-8 border-t border-slate-200 pt-6 text-base font-medium leading-relaxed text-slate-800 sm:text-lg"
+    >
+      この過程で効いた練習を、<span class="bg-amber-200/70 px-1 font-bold">カリキュラムにしています。</span>
+    </p>
+
+    <p class="mt-4 text-xs leading-relaxed text-slate-500">
+      ※ 開発者個人の経験です。同じ手順で同じ結果になることをお約束するものではありません。
+    </p>
+  </div>
+</section>
