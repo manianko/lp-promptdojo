@@ -1,0 +1,52 @@
+---
+// 設計意図：LPの第一画面。キャッチ→サブコピー→メール1項目フォームの順で、迷わせずに登録へ運ぶ（LP_SPEC §4-1 / §5）。
+import { SERVICE_NAME, FORM_ENDPOINT, PRICE_MONTHLY, LAUNCH_NOTE } from "../config";
+---
+
+<section class="bg-emerald-950 text-emerald-50">
+  <div class="mx-auto flex max-w-3xl flex-col gap-8 px-5 py-16 sm:py-24">
+    <p class="text-sm font-medium tracking-widest text-emerald-300">
+      {SERVICE_NAME}<span class="ml-2 text-xs text-emerald-500/80">（仮称）</span>
+    </p>
+
+    <h1 class="text-3xl font-bold leading-[1.35] tracking-tight sm:text-5xl sm:leading-[1.3]">
+      AI、&ldquo;見て学ぶ&rdquo;は<br class="sm:hidden" /> もう終わり。<br />
+      <span class="text-amber-400">1日5分、書いて、直される。</span>
+    </h1>
+
+    <p class="text-base leading-relaxed text-emerald-100/90 sm:text-lg">
+      ゲーム感覚で続く、日本語ネイティブのAIトレーニングアプリ。<br class="hidden sm:inline" />
+      あなたの書いたプロンプトをAIが採点し、その場で改善点を返します。<br class="hidden sm:inline" />
+      月{PRICE_MONTHLY}円（予定・変更の可能性あり）。先行登録で、β版に最初にご招待。
+    </p>
+
+    <form
+      action={FORM_ENDPOINT}
+      method="POST"
+      class="flex flex-col gap-3 sm:flex-row"
+    >
+      <label for="hero-email" class="sr-only">メールアドレス</label>
+      <input
+        id="hero-email"
+        type="email"
+        name="email"
+        required
+        autocomplete="email"
+        inputmode="email"
+        placeholder="メールアドレス"
+        class="w-full rounded-lg border border-emerald-700 bg-white px-4 py-3.5 text-base text-slate-900 placeholder:text-slate-400 focus:border-amber-400 focus:outline-none focus:ring-2 focus:ring-amber-400/60 sm:flex-1"
+      />
+      <button
+        type="submit"
+        class="w-full rounded-lg bg-amber-400 px-6 py-3.5 text-base font-bold text-emerald-950 transition hover:bg-amber-300 focus:outline-none focus:ring-2 focus:ring-amber-300 focus:ring-offset-2 focus:ring-offset-emerald-950 sm:w-auto sm:whitespace-nowrap"
+      >
+        先行登録する（無料）
+      </button>
+    </form>
+
+    <div class="space-y-1 text-xs leading-relaxed text-emerald-200/70">
+      <p>登録は無料・先行案内のみをお送りします。いつでも配信停止できます。</p>
+      <p>{LAUNCH_NOTE}</p>
+    </div>
+  </div>
+</section>

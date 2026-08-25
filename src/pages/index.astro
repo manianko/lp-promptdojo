@@ -1,0 +1,16 @@
+---
+// 設計意図：LPのトップページ。LP_SPEC.md §4 のセクションを上から順に差し込む器。
+import Layout from "../layouts/Layout.astro";
+import Hero from "../components/Hero.astro";
+import { SERVICE_NAME } from "../config";
+---
+
+<Layout
+  title={`${SERVICE_NAME}｜1日5分、書いて、直されるAI学習アプリ`}
+  description="ゲーム感覚で続く、日本語ネイティブのAIトレーニングアプリ。あなたの書いたプロンプトをAIが採点し、その場で改善点を返します。先行登録受付中。"
+>
+  <main>
+    <Hero />
+    {/* TODO(1-C): Problem / Solution / FeaturePreview / Pricing / Comparison / Story / Faq / FinalCta / Footer */}
+  </main>
+</Layout>

@@ -1,0 +1,27 @@
+---
+// 設計意図：全ページ共通のHTMLシェル。head要素とグローバルCSSの読み込みをここ1箇所に集約する。
+import "../styles/global.css";
+import { SERVICE_NAME } from "../config";
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const { title = SERVICE_NAME, description = "" } = Astro.props;
+---
+
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    {description && <meta name="description" content={description} />}
+    {/* TODO(1-C): OGP / favicon / GA4タグはタスク 1-C・1-D で追加 */}
+  </head>
+  <body class="bg-white text-slate-900 antialiased">
+    <slot />
+  </body>
+</html>
