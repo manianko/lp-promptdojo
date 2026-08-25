@@ -1,0 +1,27 @@
+---
+// 設計意図：全ページ共通の最小フッター。FinalCta(深緑)の直後に置くためslate系で明度の切れ目を作る。運営者名は創作せずプレースホルダーのまま置く（LP_SPEC §4-10）。
+import { SERVICE_NAME, OPERATOR_NAME } from "../config";
+---
+
+<footer class="bg-slate-100 text-slate-600">
+  <div class="mx-auto max-w-3xl px-5 py-10 sm:py-12">
+    <p class="text-base font-bold text-slate-900">
+      {SERVICE_NAME}<span class="ml-2 text-xs font-medium text-slate-500">（開発中）</span>
+    </p>
+
+    <p class="mt-3 text-sm leading-relaxed">
+      本サイトは、開発中のサービスの先行登録ページです。<br class="sm:hidden" />
+      掲載内容は今後変更になる場合があります。
+    </p>
+
+    <nav class="mt-6">
+      <a href="/privacy" class="text-sm font-medium text-emerald-800 underline underline-offset-4 hover:text-emerald-600">
+        プライバシーポリシー
+      </a>
+    </nav>
+
+    <p class="mt-6 border-t border-slate-200 pt-6 text-sm">
+      運営者：{OPERATOR_NAME}
+    </p>
+  </div>
+</footer>

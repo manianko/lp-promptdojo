@@ -75,7 +75,7 @@
 - [x] Story(開発者の1年間・信頼性パート)
 - [x] Faq
 - [x] FinalCta(登録フォーム再掲)
-- [ ] Footer + プライバシーポリシーページ
+- [x] Footer + プライバシーポリシーページ
 - [x] フォーム送信の疎通確認（テスト送信→受信確認）
 - [ ] OGP / meta / favicon
 - [ ] スマホ実機確認（LP流入はほぼモバイル前提）
@@ -243,6 +243,27 @@
 - ユーザー判断により、Hero と FinalCta の二重登録に対する重複防止の仕掛けは**実装しない**（Formspree側で同一メールを識別できるため）
 - 残TODO：`index.astro` の Footer、`Layout.astro` の OGP/favicon/GA4
 - `npm run build` 成功 / dev server 200応答を確認
+
+---
+
+### 2026-08-26 — Footer + プライバシーポリシー実装（1-C）
+- `src/components/Footer.astro` 新規：`SERVICE_NAME`（開発中）表記 / `/privacy` へのリンク / 運営者表記（LP_SPEC §4-10）
+- 背景は slate-100。FinalCta(深緑) の直後で明度の切れ目を作る（ユーザー承認済みの方針）
+- `src/pages/privacy.astro` 新規：指定の7項目を平易な日本語で記述。Layout + Footer を共有
+- **config.ts への追加（LP_SPEC §7 に無い項目。要承認）**：
+  `OPERATOR_NAME` / `CONTACT_EMAIL` / `PRIVACY_ESTABLISHED` の3定数。
+  運営者名は Footer と privacy の2箇所で使うため、ハードコード禁止の規律に従い config へ集約した。
+  値は `【要確認：…】` のプレースホルダーで、本物っぽい架空値は入れていない
+- **記述の正確性を優先した判断**：
+  - 「第三者に提供しません」とは書かず、Formspree への保存を独立項目（3）で明示。処理委託の実態と矛盾させない
+  - アクセス解析は GA4_ID がダミーで未設置のため「利用する**予定**です」と現在形にしない
+  - Cookie 無効化の選択肢があることを明記
+  - 削除依頼は「応じます」と断定（実際に対応可能な範囲のため）
+- 特商法表記ページは**作成しない**（販売開始前のため。Phase 2 で作成）。`dist` に該当ページが無いことを確認
+- ビルド出力は2ページ（`dist/index.html` / `dist/privacy/index.html`）。相互リンク（トップ→/privacy、/privacy→トップ）を確認
+- ゼロJS維持（両ページとも `<script>` 0件 / `.js` 出力0件）
+- `npm run build` 成功 / dev server で `/` `/privacy` ともに200応答を確認
+- **要確認プレースホルダー**：屋号または氏名 / 連絡先メールアドレス / 制定日（2026年8月26日で仮置き）
 
 ---
 

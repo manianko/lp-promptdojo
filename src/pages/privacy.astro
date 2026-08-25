@@ -1,0 +1,101 @@
+---
+// 設計意図：メールアドレスを取得するため必須のページ。法律文書の体裁より、実際の取り扱いと一致する平易な記述を優先する（LP_SPEC §3）。
+import Layout from "../layouts/Layout.astro";
+import Footer from "../components/Footer.astro";
+import { SERVICE_NAME, OPERATOR_NAME, CONTACT_EMAIL, PRIVACY_ESTABLISHED } from "../config";
+---
+
+<Layout
+  title={`プライバシーポリシー｜${SERVICE_NAME}`}
+  description={`${SERVICE_NAME}（開発中）の先行登録で取得する情報の取り扱いについて説明しています。`}
+>
+  <main class="bg-white text-slate-900">
+    <div class="mx-auto max-w-3xl px-5 py-12 sm:py-16">
+      <a
+        href="/"
+        class="text-sm font-medium text-emerald-800 underline underline-offset-4 hover:text-emerald-600"
+      >
+        ← トップページへ戻る
+      </a>
+
+      <h1 class="mt-8 text-2xl font-bold leading-snug tracking-tight sm:text-3xl">
+        プライバシーポリシー
+      </h1>
+
+      <p class="mt-4 text-base leading-relaxed text-slate-600">
+        {SERVICE_NAME}（開発中）の先行登録にあたって取得する情報の取り扱いについて、以下のとおり説明します。
+      </p>
+
+      <section class="mt-10">
+        <h2 class="text-lg font-bold sm:text-xl">1. 取得する情報</h2>
+        <p class="mt-3 text-base leading-relaxed text-slate-600">
+          先行登録フォームから、<strong class="font-bold text-slate-900">メールアドレスのみ</strong
+          >を取得します。氏名・住所・電話番号・支払い情報などは取得しません。
+        </p>
+      </section>
+
+      <section class="mt-8">
+        <h2 class="text-lg font-bold sm:text-xl">2. 利用目的</h2>
+        <p class="mt-3 text-base leading-relaxed text-slate-600">
+          取得したメールアドレスは、本サービスの公開のお知らせと、β版のご案内をお送りするためにのみ使用します。それ以外の目的には使用しません。また、第三者へ販売することはありません。
+        </p>
+      </section>
+
+      <section class="mt-8">
+        <h2 class="text-lg font-bold sm:text-xl">3. 外部サービスの利用（フォームの送信）</h2>
+        <p class="mt-3 text-base leading-relaxed text-slate-600">
+          フォームの送信処理には、Formspree（米国の事業者が提供するサービス）を利用しています。フォームを送信すると、入力されたメールアドレスは同社のサーバーに保存されます。同社での取り扱いについては、同社の定める<a
+            href="https://formspree.io/legal/privacy-policy/"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-emerald-800 underline underline-offset-4 hover:text-emerald-600"
+            >プライバシーポリシー</a
+          >に従います。
+        </p>
+      </section>
+
+      <section class="mt-8">
+        <h2 class="text-lg font-bold sm:text-xl">4. アクセス解析</h2>
+        <p class="mt-3 text-base leading-relaxed text-slate-600">
+          サイトの利用状況を把握するため、Google
+          Analytics などのアクセス解析ツールを利用する予定です。これらのツールは Cookie
+          などを使用して閲覧に関する情報を収集します。収集される情報に氏名などの個人を特定する情報は含まれません。ブラウザの設定で
+          Cookie の利用を無効にすることもできます。
+        </p>
+      </section>
+
+      <section class="mt-8">
+        <h2 class="text-lg font-bold sm:text-xl">5. 配信の停止・登録情報の削除</h2>
+        <p class="mt-3 text-base leading-relaxed text-slate-600">
+          ご案内メールに記載の方法、または下記のお問い合わせ先へご連絡いただければ、配信の停止と、登録いただいたメールアドレスの削除に応じます。
+        </p>
+      </section>
+
+      <section class="mt-8">
+        <h2 class="text-lg font-bold sm:text-xl">6. お問い合わせ先</h2>
+        <dl class="mt-3 flex flex-col gap-2 text-base leading-relaxed text-slate-600">
+          <div class="flex flex-wrap gap-x-2">
+            <dt class="font-bold text-slate-900">運営者：</dt>
+            <dd>{OPERATOR_NAME}</dd>
+          </div>
+          <div class="flex flex-wrap gap-x-2">
+            <dt class="font-bold text-slate-900">連絡先：</dt>
+            <dd>{CONTACT_EMAIL}</dd>
+          </div>
+        </dl>
+      </section>
+
+      <section class="mt-8 border-t border-slate-200 pt-8">
+        <h2 class="text-lg font-bold sm:text-xl">7. 制定日と改定について</h2>
+        <p class="mt-3 text-base leading-relaxed text-slate-600">
+          制定日：{PRIVACY_ESTABLISHED}
+        </p>
+        <p class="mt-2 text-base leading-relaxed text-slate-600">
+          本ポリシーの内容は変更されることがあります。変更した場合は、本ページに掲載します。
+        </p>
+      </section>
+    </div>
+  </main>
+
+  <Footer />
+</Layout>
