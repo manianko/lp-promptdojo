@@ -42,7 +42,8 @@
 - [ ] [CC] GA4タグ設置（登録完了イベント `waitlist_submit` を計測）
 - [ ] [ME] Vercelデプロイ
 - [ ] [ME] 広告アカウント側でCVイベント設定
-- [ ] [ME] 公開前一括差し替え：GA4_ID / (GADS_ID or 削除) / CV_LABELS / OPERATOR_NAME / CONTACT_EMAIL / PRIVACY_ESTABLISHED / SITE_URL
+- [ ] [ME] 公開前一括差し替え：GA4_ID / (GADS_ID or 削除) / CV_LABELS / OPERATOR_NAME / CONTACT_EMAIL / PRIVACY_ESTABLISHED
+      ※ SITE_URL は 2026-09-04 に `https://lp-promptdojo.vercel.app` を設定済み（独自ドメイン移行時のみ再変更）
 - [ ] [ME] 広告入稿（予算・訴求はLP_SPEC.md §6）
 
 ### 1-E. 判定 [WC+ME]

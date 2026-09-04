@@ -54,7 +54,12 @@
 - 開発サーバ：`npm run dev`（バックグラウンド運用は `npx astro dev --background` / `stop` / `status` / `logs`）
 - ビルド確認：`npm run build`
 - `npx astro check` は未導入（初回実行時に `@astrojs/check` のインストール確認が対話で出る）
-- `scripts/generate-images.cjs` = OGP/favicon生成器。画像を作り直す時に node で実行。sharp依存
+- `scripts/generate-images.cjs` = OGP/favicon生成器。sharp依存。**ビルド時には走らない**（`npm run build` は `astro build` のみ）。
+  OGP/favicon画像は確定成果物として `public/` にコミット済みで、そのまま配信される。
+  コピーやサービス名を変えた時だけ、**日本語フォントのあるローカル環境**で `node scripts/generate-images.cjs` を手動実行し、
+  生成された `public/*.png` を目視確認のうえコミットする（フォントの無い環境で生成すると日本語が消えるため）
+- OGPの `og:image` / `og:url` / `canonical` は `config.ts` の `SITE_URL` から絶対URLで組み立てる。
+  `SITE_URL` が空だと相対パスになり、X/Facebook/LINE等のクローラが og:image を解決できずカードに画像が出ない
 
 ---
 
@@ -302,6 +307,25 @@
 - `CLAUDE.md` / `AGENTS.md` の環境メモに `scripts/generate-images.cjs` の1行を追加
 - **1-C（LP実装）全13項目を完了**。スマホ実機確認はユーザー実施
 - 次は 1-D の `[CC] GA4タグ設置（waitlist_submit）`。ユーザーの指示待ちで着手しない
+
+---
+
+### 2026-09-04 — 本番OGPで画像が出ない問題の修正
+- 申告：本番 https://lp-promptdojo.vercel.app のOGPプレビューで日本語が全消え。
+  想定原因は「Vercelに日本語フォントが無く、ビルド時の画像生成で日本語が空白になる」だったが、**検証の結果この想定は誤りだった**
+- 調査で確認した事実：
+  - `package.json` の build は `astro build` のみ。`generate-images.cjs` はnpm scripts・astro.config・vercel.json のどこからも呼ばれていない（参照はdocs内3箇所のみ）
+  - `public/` の画像4点はすべてgit追跡済み。`.gitignore` は `dist/` のみで public/ は除外していない。working tree と HEAD の差分もゼロ
+  - **本番から取得した4点すべてがローカルとmd5一致**（og-image.png `730d4be6…` 等）。本番の og-image.png を開いて日本語が正常描画されていることを目視確認。フォント欠落は発生していなかった
+- **真の原因**：`config.ts` の `SITE_URL = ""` により `og:image` / `twitter:image` が相対パス `/og-image.png` で出力され、
+  `og:url` と `canonical` は未出力だった。OGP仕様上 og:image は絶対URL必須で、クローラが相対パスを解決しないためカードの画像が読み込まれない。
+  キャッチコピーの日本語はすべてその画像内にあるため「日本語が全消え」に見えていた（meta の title/description 側の日本語は正常に出力されていた）
+- 修正：`SITE_URL` を `"https://lp-promptdojo.vercel.app"` に設定（1行）。`Layout.astro` の切り替え実装は前セッションで既に入っており、変更不要
+- 画像の再生成・build スクリプトの変更・.gitignore の変更は**いずれも不要だったため実施していない**
+- ビルド出力で検証：`/` と `/privacy` の両方で og:image・twitter:image が絶対URL化、canonical と og:url がページ別に正しく出力。相対パス残存0件
+- ゼロJS維持（2ページとも `<script>` 0件 / `.js` 出力0件）
+- `docs/TASKS.md` 1-D の一括差し替えリストから `SITE_URL` を消化済みとして外した
+- `npm run build` 成功（2ページ）
 
 ---
 
